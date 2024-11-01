@@ -2,7 +2,7 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        customColor: "#123456",
+        "bg-primary": "#123456",
       },
     },
   },

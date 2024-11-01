@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WeatherAPP">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- import dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+
+    <!-- scripts -->
+    <script src="routes.js"></script>
+    <script src="script.js"></script>
     <script src="tailwind-config.js"></script>
+
     <title>WeatherAPP</title>
   </head>
   <body>
-    initial commit
+    <div>
+      <div ng-view></div>
+      <!-- page will be rendered here -->
+    </div>
   </body>
 </html>
