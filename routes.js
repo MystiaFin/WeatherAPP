@@ -5,16 +5,16 @@ angular.module("WeatherAPP", ["ngRoute"]).config([
     $locationProvider.hashPrefix("");
     $routeProvider
       .when("/", {
-        templateUrl: "pages/home.html",
+        templateUrl: "src/pages/home/home.html",
       })
       .when("/forecast", {
-        templateUrl: "pages/forecast.html",
+        templateUrl: "src/pages/forecast/forecast.html",
       })
       .when("/temperature", {
-        templateUrl: "pages/temperature.html",
+        templateUrl: "src/pages/temperature/temperature.html",
       })
       .when("/airpolution", {
-        templateUrl: "pages/airpolution.html",
+        templateUrl: "src/pages/airpolution/airpolution.html",
       })
       .otherwise({
         redirectTo: "/",
