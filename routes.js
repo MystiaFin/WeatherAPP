@@ -6,6 +6,7 @@ angular.module("WeatherAPP", ["ngRoute"]).config([
     $routeProvider
       .when("/", {
         templateUrl: "src/pages/home/home.html",
+        controller: "MainController",
       })
       .when("/forecast", {
         templateUrl: "src/pages/forecast/forecast.html",
@@ -17,7 +18,8 @@ angular.module("WeatherAPP", ["ngRoute"]).config([
         templateUrl: "src/pages/airpolution/airpolution.html",
       })
       .when("/uvindex", {
-        templateUrl: "src/pages/uvindex/uvindex.html"
+        templateUrl: "src/pages/uvindex/uvindex.html",
+        controller: "UVIndexController",
       })
       .otherwise({
         redirectTo: "/",
