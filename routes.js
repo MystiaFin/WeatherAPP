@@ -16,6 +16,9 @@ angular.module("WeatherAPP", ["ngRoute"]).config([
       .when("/airpolution", {
         templateUrl: "src/pages/airpolution/airpolution.html",
       })
+      .when("/uvindex", {
+        templateUrl: "src/pages/uvindex/uvindex.html"
+      })
       .otherwise({
         redirectTo: "/",
       });
