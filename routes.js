@@ -1,4 +1,4 @@
-angular.module("WeatherAPP", ["ngRoute"]).config([
+var app = angular.module("WeatherAPP", ["ngRoute"]).config([
   "$routeProvider",
   "$locationProvider",
   function ($routeProvider, $locationProvider) {
@@ -6,7 +6,7 @@ angular.module("WeatherAPP", ["ngRoute"]).config([
     $routeProvider
       .when("/", {
         templateUrl: "src/pages/home/home.html",
-        controller: "MainController",
+        controller: "HomeController",
       })
       .when("/forecast", {
         templateUrl: "src/pages/forecast/forecast.html",

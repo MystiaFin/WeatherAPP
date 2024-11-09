@@ -8,14 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- scripts -->
-    <script src="routes.js"></script>
-    <script src="module.js"></script>
-    <script src="script.js"></script>
-    <script src="src/pages/home/home-script.js"></script>
-    <script src="src/pages/forecast/forecast-script.js"></script>
-    <script src="src/pages/temperature/temperature-script.js"></script>
-    <script src="src/pages/airpolution/airpolution-script.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <title>WeatherAPP</title>
   </head>
@@ -24,5 +16,14 @@
       <div ng-view></div>
       <!-- page will be rendered here -->
     </div>
+
+    <!-- scripts -->
+    <script src="routes.js"></script>
+    <script src="module.js"></script>
+    <script src="script.js"></script>
+    <script src="src/controller/home.js"></script>
+    <script src="src/pages/forecast/forecast-script.js"></script>
+    <script src="src/pages/temperature/temperature-script.js"></script>
+    <script src="src/pages/airpolution/airpolution-script.js"></script>
   </body>
 </html>
