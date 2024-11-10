@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // OpenWeatherMap API configuration
-const API_KEY = process.env.OPENWEATHER_API_KEY || '640a58fa0d5bbc1efc7c286e2c547ed2';
+const API_KEY = process.env.OPENWEATHER_API_KEY || '640a58fa0d5bbc1efc7c286e2c547ed2'; // default api key for testing purposes
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 // Middleware to parse JSON bodies
