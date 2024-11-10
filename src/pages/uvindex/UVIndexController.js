@@ -1,4 +1,4 @@
-angular.module("WeatherAPP").controller("UVIndexController", [
+app.controller("UVIndexController", [
   "$scope",
   "WeatherService",
   function ($scope, WeatherService) {

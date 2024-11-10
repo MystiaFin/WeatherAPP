@@ -12,18 +12,15 @@
     <title>WeatherAPP</title>
   </head>
   <body>
+    <script src="routes.js"></script>
     <div class="h-full bg-black text-white">
       <div ng-view></div>
       <!-- page will be rendered here -->
     </div>
 
     <!-- scripts -->
-    <script src="routes.js"></script>
     <script src="module.js"></script>
-    <script src="script.js"></script>
-    <script src="src/controller/home.js"></script>
-    <script src="src/pages/forecast/forecast-script.js"></script>
-    <script src="src/pages/temperature/temperature-script.js"></script>
-    <script src="src/pages/airpolution/airpolution-script.js"></script>
+    <script src="src/services/WeatherService.js"></script>
+    <script src="src/controller/HomeController.js"></script>
   </body>
 </html>
