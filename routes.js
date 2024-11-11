@@ -1,15 +1,15 @@
-angular.module("WeatherAPP", ["ngRoute"]).config([
+var app = angular.module("WeatherAPP", ["ngRoute"]).config([
   "$routeProvider",
   "$locationProvider",
   function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix("");
     $routeProvider
       .when("/", {
-        templateUrl: "src/pages/home/home.html",
-        controller: "MainController",
+        templateUrl: "src/pages/home.html",
+        controller: "HomeController",
       })
       .when("/forecast", {
-        templateUrl: "src/pages/forecast/forecast.html",
+        templateUrl: "src/pages/forecast.html",
       })
       .when("/temperature", {
         templateUrl: "src/pages/temperature/temperature.html",
