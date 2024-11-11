@@ -4,7 +4,7 @@ const express = require("express");
 const axios = require("axios");
 const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.use(cors());
 
@@ -84,6 +84,41 @@ app.get("/forecast/city/:cityName", async (req, res) => {
     });
   }
 });
+
+// Endpoint to get air pollution data by city name
+app.get("/airpollution/city/:cityName", async (req, res) => {
+  try {
+    const { cityName } = req.params;
+
+    // Step 1: Get coordinates by city name
+    const cityResponse = await axios.get(`${BASE_URL}/weather`, {
+      params: {
+        q: cityName,
+        appid: API_KEY,
+      },
+    });
+
+    const { lat, lon } = cityResponse.data.coord;
+
+    // Step 2: Use coordinates to get air pollution data
+    const pollutionResponse = await axios.get(`${BASE_URL}/air_pollution`, {
+      params: {
+        lat,
+        lon,
+        appid: API_KEY,
+      },
+    });
+
+    res.json(pollutionResponse.data);
+  } catch (error) {
+    console.error("Error fetching air pollution data:", error.message);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data?.message || "Internal server error",
+    });
+  }
+});
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
