@@ -13,6 +13,7 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
       })
       .when("/temperature", {
         templateUrl: "src/pages/temperature/temperature.html",
+        controller: "TemperatureController",
       })
       .when("/airpolution", {
         templateUrl: "src/pages/airpolution/airpolution.html",
