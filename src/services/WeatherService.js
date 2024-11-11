@@ -1,7 +1,7 @@
 app.service("WeatherService", [
   "$http",
   function ($http) {
-    const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "http://localhost:8000";
 
     return {
       getForecastByCity: function (city) {

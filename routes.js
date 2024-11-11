@@ -17,7 +17,8 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
       })
       .when("/airpolution", {
         templateUrl: "src/pages/airpolution/airpolution.html",
-      })
+        controller: "AirPolutionController",
+      })      
       .when("/uvindex", {
         templateUrl: "src/pages/uvindex/uvindex.html",
         controller: "UVIndexController",
@@ -27,3 +28,6 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
       });
   },
 ]);
+
+
+
