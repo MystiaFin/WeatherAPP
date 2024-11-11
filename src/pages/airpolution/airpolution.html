@@ -1,1 +1,24 @@
-<div>air polution</div>
+<div ng-controller="AirPolutionController">
+    <header class="flex p-10">
+      <div>Location: {{ selectedCity }}</div>
+      <select ng-model="selectedCity" ng-change="changeCity(selectedCity)">
+        <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+      </select>
+    </header>
+  
+    <div ng-if="loading">Loading air pollution data...</div>
+    <div ng-if="!loading && airPollution.list">
+      <h3>Air Pollution Data for {{ selectedCity }}</h3>
+      <ul>
+        <li>CO: {{ airPollution.list[0].components.co }}</li>
+        <li>NO: {{ airPollution.list[0].components.no }}</li>
+        <li>NO2: {{ airPollution.list[0].components.no2 }}</li>
+        <li>O3: {{ airPollution.list[0].components.o3 }}</li>
+        <li>SO2: {{ airPollution.list[0].components.so2 }}</li>
+        <li>PM2.5: {{ airPollution.list[0].components.pm2_5 }}</li>
+        <li>PM10: {{ airPollution.list[0].components.pm10 }}</li>
+        <li>NH3: {{ airPollution.list[0].components.nh3 }}</li>
+      </ul>
+    </div>
+  </div>
+  
