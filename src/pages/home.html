@@ -27,19 +27,24 @@
         <div class="bg-gray-900 p-1 h-full rounded-lg">
           <div ng-if="loading" class="text-center p-4">Loading forecast...</div>
           <div ng-if="!loading" class="p-4">
-            <h3 class="text-xl mb-4">5-Day Forecast</h3>
+            <h3 class="text-2xl mt-2 mb-6 font-bold">
+              General Weather Forecast
+            </h3>
             <div class="flex flex-row gap-2">
               <div
                 ng-repeat="day in forecast | limitTo:5"
-                class="flex justify-center flex-col text-center text-sm p-2 bg-gray-800 rounded flex-1"
+                class="flex justify-center px-10 flex-col text-center text-sm p-2 bg-gray-800 rounded flex-1"
               >
-                <div class="">{{day.weather}}</div>
+                <div class="font-medium py-4 text-lg">{{day.weather}}</div>
                 <img
                   ng-src="{{day.icon}}"
                   alt="weather icon"
                   class="w-12 h-12 mx-auto"
                 />
-                <div>{{day.date | date:'MMM d'}}</div>
+                <div class="py-4">
+                  <div class="font-bold">{{day.date | date:'MMM d'}}</div>
+                  <div class="text-gray-400">{{day.hour}}</div>
+                </div>
               </div>
             </div>
           </div>

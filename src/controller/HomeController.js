@@ -32,11 +32,13 @@ app.controller("HomeForecast", function ($scope, WeatherService) {
           const weatherMain = item.weather[0].main;
           const localIcon = weatherIconMap[weatherMain];
           const defaultIcon = `http://openweathermap.org/img/w/${item.weather[0].icon}.png`;
+          const date = new Date(item.dt * 1000);
 
           return {
             weather: weatherMain,
             icon: localIcon ? localIcon : defaultIcon,
             date: new Date(item.dt * 1000),
+            hour: date.getHours() + ":00",
           };
         });
         $scope.loading = false;
