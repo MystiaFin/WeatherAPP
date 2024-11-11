@@ -1,0 +1,22 @@
+<div ng-controller="WindController">
+  <div class="p-10">
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold">Wind</h1>
+      <div class="flex items-center gap-2">
+        <span>Location:</span>
+        <select
+          ng-model="selectedCity"
+          ng-change="changeCity(selectedCity)"
+          class="bg-gray-900 p-2 rounded-lg"
+        >
+          <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+        </select>
+      </div>
+    </header>
+
+    <div ng-if="loading" class="text-center p-4">Loading...</div>
+    <div class="flex flex-row flex-wrap gap-4 justify-center">
+      <div class="font-medium py-4 text-lg">{{ windData.speed }}</div>
+    </div>
+  </div>
+</div>

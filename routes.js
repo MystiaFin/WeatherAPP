@@ -18,16 +18,13 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
       .when("/airpolution", {
         templateUrl: "src/pages/airpolution/airpolution.html",
         controller: "AirPolutionController",
-      })      
-      .when("/uvindex", {
-        templateUrl: "src/pages/uvindex/uvindex.html",
-        controller: "UVIndexController",
+      })
+      .when("/wind", {
+        templateUrl: "src/pages/wind/wind.html",
+        controller: "WindController",
       })
       .otherwise({
         redirectTo: "/",
       });
   },
 ]);
-
-
-

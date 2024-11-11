@@ -118,7 +118,25 @@ app.get("/airpollution/city/:cityName", async (req, res) => {
   }
 });
 
-
+// Get Wind data by city name
+app.get("/wind/city/:cityName", async (req, res) => {
+  try {
+    const { cityName } = req.params;
+    const response = await axios.get(`${BASE_URL}/wind`, {
+      params: {
+        q: cityName,
+        appid: API_KEY,
+        units: "metric",
+      },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching wind data:", error.message);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data?.message || "Internal server error",
+    });
+  }
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
