@@ -21,19 +21,19 @@
     </a>
     <div
       ng-controller="HomeForecast"
-      class="h-[400px] flex justify-between flex-col gap-4"
+      class="flex justify-between flex-col gap-4"
     >
       <a href="#/forecast" class="h-full">
         <div class="bg-gray-900 p-1 h-full rounded-lg">
           <div ng-if="loading" class="text-center p-4">Loading forecast...</div>
           <div ng-if="!loading" class="p-4">
             <h3 class="text-xl mb-4">5-Day Forecast</h3>
-            <div class="grid grid-cols-5 gap-2">
+            <div class="flex flex-row gap-2">
               <div
                 ng-repeat="day in forecast | limitTo:5"
-                class="text-sm p-2 bg-gray-800 rounded"
+                class="flex justify-center flex-col text-center text-sm p-2 bg-gray-800 rounded flex-1"
               >
-                <div class="font-bold">{{day.weather}}</div>
+                <div class="">{{day.weather}}</div>
                 <img
                   ng-src="{{day.icon}}"
                   alt="weather icon"
