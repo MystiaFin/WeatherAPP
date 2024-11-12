@@ -20,8 +20,6 @@ app.controller("ForecastController", function ($scope, WeatherService) {
             date: date,
             hour: date.getHours() + ":00",
             temp: Math.round(item.main.temp),
-            humidity: item.main.humidity,
-            windSpeed: item.wind.speed,
           };
         });
         $scope.loading = false;
