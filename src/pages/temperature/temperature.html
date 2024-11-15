@@ -2,7 +2,7 @@
   <!-- left side -->
   <div class="flex flex-col w-3/5 h-full items-start justify-start">
     <!-- top widget -->
-    <div class="flex flex-row items-center justify-between w-1/2 h-2/6 p-6">
+    <div class="flex flex-row items-center justify-between w-2/3 h-2/6 p-6">
       <!-- curr temp -->
       <div class="flex flex-col items-between p-4">
         <div>
@@ -20,37 +20,19 @@
     <div
       class="flex flex-col w-full justify-evenly h-2/6 bg-gray-800 px-10 rounded-lg"
     >
-      <h3 class="text-lg font-semibold">Today's Forecast</h3>
+      <h3 class="text-lg font-semibold">Today's Temp Forecast</h3>
       <div class="flex flex-row justify-between">
-        <div>
-          <p>6:00 AM</p>
-          <div>☁️</div>
-          <p>25°</p>
-        </div>
-        <div>
-          <p>9:00 AM</p>
-          <div>⛅</div>
-          <p>28°</p>
-        </div>
-        <div>
-          <p>12:00 PM</p>
-          <div>☀️</div>
-          <p>33°</p>
-        </div>
-        <div>
-          <p>3:00 PM</p>
-          <div>☀️</div>
-          <p>34°</p>
-        </div>
-        <div>
-          <p>6:00 PM</p>
-          <div>☀️</div>
-          <p>32°</p>
-        </div>
-        <div>
-          <p>9:00 PM</p>
-          <div>☁️</div>
-          <p>30°</p>
+        <div
+          ng-repeat="day in dayTemps | limitTo:5"
+          class="flex flex-col items-center"
+        >
+          <p>{{day.hour}}</p>
+          <img
+            ng-src="{{day.icon}}"
+            alt="weather icon"
+            class="w-12 h-12 mx-auto"
+          />
+          <p>{{day.temp}}°C</p>
         </div>
       </div>
     </div>
@@ -59,19 +41,19 @@
     <div
       class="flex flex-col justify-evenly w-full h-1/4 bg-gray-800 px-10 rounded-lg mt-6"
     >
-      <h3 class="text-lg font-semibold">Air Conditions</h3>
+      <h3 class="text-lg font-semibold">Temp Details</h3>
       <div class="flex justify-between items-center mt-4">
         <div>
           <p class="text-gray-400">Feels like</p>
-          <p class="text-xl font-semibold">{{feels_like}}°C</p>
+          <p class="text-xl font-semibold">{{feels_like}} °C</p>
         </div>
         <div>
-          <p class="text-gray-400">Wind</p>
-          <p class="text-xl font-semibold">{{wind_speed}} m/s</p>
+          <p class="text-gray-400">Min Temp</p>
+          <p class="text-xl font-semibold">{{temp_min}} °C</p>
         </div>
         <div>
-          <p class="text-gray-400">Pressure</p>
-          <p class="text-xl font-semibold">{{pressure}} hPa</p>
+          <p class="text-gray-400">Max Temp</p>
+          <p class="text-xl font-semibold">{{temp_max}} °C</p>
         </div>
         <div>
           <p class="text-gray-400">Humidity</p>
@@ -81,14 +63,20 @@
     </div>
   </div>
 
-  <!-- 5-Day temp -->
+  <!-- Future temp -->
   <div
     class="flex flex-col justify-evenly w-1/4 h-full px-10 bg-gray-800 rounded-lg"
   >
-    <h3 class="text-lg font-semibold">5-Day Temperatures</h3>
+    <h3 class="text-lg font-semibold">Future Temp Forecasts</h3>
     <div class="flex flex-col justify-evenly h-3/4">
-      <div ng-repeat="day in dayTemps | limitTo:5" class="flex justify-between">
-        <p>{{day.date | date:'MMM d'}}</p>
+      <div
+        ng-repeat="day in futureTemps | limitTo:5"
+        class="flex justify-between items-center"
+      >
+        <div>
+          <p>{{day.date | date:'MMM d'}}</p>
+          <p>{{day.hour}}</p>
+        </div>
         <img
           ng-src="{{day.icon}}"
           alt="weather icon"
