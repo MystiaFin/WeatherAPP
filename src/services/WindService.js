@@ -7,6 +7,12 @@ app.service("WindService", [
       getWindByCity: function (city) {
         return $http.get(`${BASE_URL}/wind/city/${city}`);
       },
+      getForecastByCity: function (city) {
+        return $http.get(`${BASE_URL}/forecast/city/${city}`);
+      },
+      getWeatherByCity: function (city) {
+        return $http.get(`${BASE_URL}/weather/city/${city}`);
+      },
     };
   },
 ]);
