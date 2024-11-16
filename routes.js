@@ -11,7 +11,7 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
       .when("/forecast", {
         templateUrl: "src/pages/forecast.html",
       })
-      .when("/temperature", {
+      .when("/temperature/:cityName", {
         templateUrl: "src/pages/temperature/temperature.html",
         controller: "TemperatureController",
       })

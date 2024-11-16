@@ -53,3 +53,34 @@ app.controller("HomeForecast", function ($scope, WeatherService) {
     loadForecast();
   });
 });
+
+app.controller("HomeTemperature", function ($scope, WeatherService) {
+  $scope.loading = true;
+
+  $scope.temp = 0;
+  $scope.feels_like = 0;
+  $scope.humidity = 0;
+  $scope.temp_min = 0;
+  $scope.temp_max = 0;
+
+  function loadTemperature() {
+    $scope.loading = true;
+    WeatherService.getWeatherByCity($scope.$parent.selectedCity)
+      .then(function (response) {
+        $scope.temp = response.data.main.temp;
+        $scope.feels_like = response.data.main.feels_like;
+        $scope.humidity = response.data.main.humidity;
+        $scope.temp_min = response.data.main.temp_min;
+        $scope.temp_max = response.data.main.temp_max;
+        $scope.loading = false;
+      })
+      .catch(function (error) {
+        console.error("Error fetching temperature:", error);
+        $scope.loading = false;
+      });
+  }
+
+  $scope.$watch("$parent.selectedCity", function () {
+    loadTemperature();
+  });
+});

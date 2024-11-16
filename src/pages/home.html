@@ -16,8 +16,44 @@
   </div>
   <div class="home-container"></div>
   <div class="flex p-10 gap-4 justify-center items-center">
-    <a href="#/temperature">
-      <div class="h-[400px] bg-gray-900 p-2 rounded-lg">temperature</div>
+    <a href="#/temperature/{{selectedCity}}">
+      <div ng-controller="HomeTemperature">
+        <div class="bg-gray-900 p-4 rounded-lg min-h-[400px]">
+          <div class="mb-4">
+            <h2 class="text-xl font-bold">Temperature</h2>
+          </div>
+
+          <div ng-if="loading" class="text-center mt-20">
+            <p class="text-gray-400">Loading...</p>
+          </div>
+
+          <div ng-if="!loading" class="text-center mt-10">
+            <div class="text-5xl mb-8">{{temp}}°C</div>
+
+            <div class="grid grid-cols-2 gap-4 md:gap-8">
+              <div class="p-2">
+                <p class="text-gray-400">Feels like</p>
+                <p class="text-xl">{{feels_like}}°C</p>
+              </div>
+
+              <div class="p-2">
+                <p class="text-gray-400">Humidity</p>
+                <p class="text-xl">{{humidity}}%</p>
+              </div>
+
+              <div class="p-2">
+                <p class="text-gray-400">Min</p>
+                <p class="text-xl">{{temp_min}}°C</p>
+              </div>
+
+              <div class="p-2">
+                <p class="text-gray-400">Max</p>
+                <p class="text-xl">{{temp_max}}°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </a>
     <div
       ng-controller="HomeForecast"

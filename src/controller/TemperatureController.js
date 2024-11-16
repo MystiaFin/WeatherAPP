@@ -1,14 +1,17 @@
 app.controller("TemperatureController", [
   "$scope",
   "WeatherService",
-  function ($scope, WeatherService) {
+  "$routeParams",
+  function ($scope, WeatherService, $routeParams) {
+    $scope.cityName = $routeParams.cityName;
+
     // curr temp
     $scope.temp = 0;
     $scope.humidity = 0;
     $scope.feels_like = 0;
     $scope.temp_min = 0;
     $scope.temp_max = 0;
-    WeatherService.getWeatherByCity("Jakarta")
+    WeatherService.getWeatherByCity($scope.cityName)
       .then(function (response) {
         $scope.temp = response.data.main.temp;
         $scope.humidity = response.data.main.humidity;
@@ -24,7 +27,7 @@ app.controller("TemperatureController", [
     // today temps and future temps
     $scope.dayTemps = [];
     $scope.futureTemps = [];
-    WeatherService.getForecastByCity("Jakarta")
+    WeatherService.getForecastByCity($scope.cityName)
       .then(function (response) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
