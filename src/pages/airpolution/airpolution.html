@@ -1,24 +1,151 @@
-<div ng-controller="AirPolutionController">
-    <header class="flex p-10">
-      <div>Location: {{ selectedCity }}</div>
-      <select ng-model="selectedCity" ng-change="changeCity(selectedCity)">
-        <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-      </select>
-    </header>
+<div ng-controller="AirPolutionController" class="min-h-screen bg-gray-100">
+  <!-- Header Section -->
+  <header class="flex p-4 bg-blue-600 text-white items-center justify-between shadow-md">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <div class="text-xl font-bold">Location: {{ selectedCity }}</div>
+  <select
+  ng-model="selectedCity"
+  ng-change="changeCity(selectedCity)"
+  class="bg-white text-gray-800 rounded p-2 focus:outline-none focus:ring focus:ring-blue-300"
+  >
+  <option ng-repeat="city in cities" value="{{ city }}">{{ city }}</option>
+  </select>
+  </header>
   
-    <div ng-if="loading">Loading air pollution data...</div>
-    <div ng-if="!loading && airPollution.list">
-      <h3>Air Pollution Data for {{ selectedCity }}</h3>
-      <ul>
-        <li>CO: {{ airPollution.list[0].components.co }}</li>
-        <li>NO: {{ airPollution.list[0].components.no }}</li>
-        <li>NO2: {{ airPollution.list[0].components.no2 }}</li>
-        <li>O3: {{ airPollution.list[0].components.o3 }}</li>
-        <li>SO2: {{ airPollution.list[0].components.so2 }}</li>
-        <li>PM2.5: {{ airPollution.list[0].components.pm2_5 }}</li>
-        <li>PM10: {{ airPollution.list[0].components.pm10 }}</li>
-        <li>NH3: {{ airPollution.list[0].components.nh3 }}</li>
-      </ul>
-    </div>
+  <!-- Loading Indicator -->
+  <div ng-if="loading" class="p-4 text-center text-gray-400">
+  Loading air pollution data...
   </div>
   
+  <!-- Air Pollution Data Section -->
+  <div ng-if="!loading && airPollution" class="p-6 max-w-4xl mx-auto mt-6 bg-white shadow-md rounded-md">
+  <h3 class="text-2xl font-semibold text-gray-800">
+  Air Pollution Data for {{ selectedCity }}
+  </h3>
+  <p class="text-black">AQI :
+  <span
+  ng-class="{
+  'text-green-600': airPollution.airQualityLevel === 'Very Good',
+  'text-green-700': airPollution.airQualityLevel === 'Good',
+  'text-orange-600': airPollution.airQualityLevel === 'Moderate',
+  'text-red-800': airPollution.airQualityLevel === 'Poor',
+  'text-purple-600': airPollution.airQualityLevel === 'Very Poor'
+  }">
+  {{ airPollution.airQualityLevel }}
+  </span>
+  </p>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+  <!-- CO Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.co_classification === 'Very Good',
+  'text-green-600': airPollution.components.co_classification === 'Good',
+  'text-orange-600': airPollution.components.co_classification === 'Moderate',
+  'text-red-600': airPollution.components.co_classification === 'Poor',
+  'text-purple-600': airPollution.components.co_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">CO:</p>
+  <p class="text-black">{{ airPollution.components.co }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.co_classification }}</p>
+  </div>
+  
+  <!-- NO Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.no_classification === 'Very Good',
+  'text-green-600': airPollution.components.no_classification === 'Good',
+  'text-orange-600': airPollution.components.no_classification === 'Moderate',
+  'text-red-600': airPollution.components.no_classification === 'Poor',
+  'text-purple-600': airPollution.components.no_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">NO:</p>
+  <p class="text-black">{{ airPollution.components.no }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.no_classification }}</p>
+  </div>
+  
+  <!-- NO2 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.no2_classification === 'Very Good',
+  'text-green-600': airPollution.components.no2_classification === 'Good',
+  'text-orange-600': airPollution.components.no2_classification === 'Moderate',
+  'text-red-600': airPollution.components.no2_classification === 'Poor',
+  'text-purple-600': airPollution.components.no2_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">NO2:</p>
+  <p class="text-black">{{ airPollution.components.no2 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.no2_classification }}</p>
+  </div>
+  
+  <!-- O3 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.o3_classification === 'Very Good',
+  'text-green-600': airPollution.components.o3_classification === 'Good',
+  'text-orange-600': airPollution.components.o3_classification === 'Moderate',
+  'text-red-600': airPollution.components.o3_classification === 'Poor',
+  'text-purple-600': airPollution.components.o3_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">O3:</p>
+  <p class="text-black">{{ airPollution.components.o3 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.o3_classification }}</p>
+  </div>
+  
+  <!-- SO2 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.so2_classification === 'Very Good',
+  'text-green-600': airPollution.components.so2_classification === 'Good',
+  'text-orange-600': airPollution.components.so2_classification === 'Moderate',
+  'text-red-600': airPollution.components.so2_classification === 'Poor',
+  'text-purple-600': airPollution.components.so2_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">SO2:</p>
+  <p class="text-black">{{ airPollution.components.so2 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.so2_classification }}</p>
+  </div>
+  
+  <!-- PM2.5 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.pm2_5_classification === 'Very Good',
+  'text-green-600': airPollution.components.pm2_5_classification === 'Good',
+  'text-orange-600': airPollution.components.pm2_5_classification === 'Moderate',
+  'text-red-600': airPollution.components.pm2_5_classification === 'Poor',
+  'text-purple-600': airPollution.components.pm2_5_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">PM2.5:</p>
+  <p class="text-black">{{ airPollution.components.pm2_5 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.pm2_5_classification }}</p>
+  </div>
+  
+  <!-- PM10 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.pm10_classification === 'Very Good',
+  'text-green-600': airPollution.components.pm10_classification === 'Good',
+  'text-orange-600': airPollution.components.pm10_classification === 'Moderate',
+  'text-red-600': airPollution.components.pm10_classification === 'Poor',
+  'text-purple-600': airPollution.components.pm10_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">PM10:</p>
+  <p class="text-black">{{ airPollution.components.pm10 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.pm10_classification }}</p>
+  </div>
+  
+  <!-- NH3 Section -->
+  <div class="p-4 rounded shadow-sm border bg-white"
+  ng-class="{
+  'text-black': airPollution.components.nh3_classification === 'Very Good',
+  'text-green-600': airPollution.components.nh3_classification === 'Good',
+  'text-orange-600': airPollution.components.nh3_classification === 'Moderate',
+  'text-red-600': airPollution.components.nh3_classification === 'Poor',
+  'text-purple-600': airPollution.components.nh3_classification === 'Very Poor'
+  }">
+  <p class="font-medium text-black">NH3:</p>
+  <p class="text-black">{{ airPollution.components.nh3 }} μg/m³</p>
+  <p class="text-black">{{ airPollution.components.nh3_classification }}</p>
+  </div>
+  </div>
+  </div>
