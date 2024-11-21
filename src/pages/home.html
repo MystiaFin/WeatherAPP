@@ -3,18 +3,18 @@
     <header class="w-full flex flex-row justify-between items-center gap-4">
       <div class="text-2xl font-bold">WeatherAPP</div>
       <div class="text-xl gap-2">
-        Location: {{ selectedCity }}
-        <select
+        <input
+          type="text"
           ng-model="selectedCity"
-          ng-change="changeCity(selectedCity)"
           class="bg-gray-900 p-2 rounded-lg"
-        >
-          <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-        </select>
+          placeholder="Enter city name"
+          ng-keyup="changeCity(selectedCity)"
+          ng-model-options="{ debounce: 500 }"
+        />
+        Location: {{ selectedCity }}
       </div>
     </header>
   </div>
-  <div class="home-container"></div>
   <div class="flex p-10 gap-4 justify-center items-center">
     <a href="#/temperature/{{selectedCity}}">
       <div ng-controller="HomeTemperature">
@@ -90,8 +90,15 @@
         <a href="#/airpolution">
           <div class="bg-gray-900 p-1 rounded-lg">air polution</div>
         </a>
-        <a href="#/wind">
-          <div class="bg-gray-900 p-1 rounded-lg">Wind</div>
+
+        <a href="#/wind/{{selectedCity}}">
+          <div
+            ng-controller="HomeWind"
+            class="bg-gray-900 text-white text-center w-40 h-20 rounded-lg flex flex-col items-center justify-center"
+          >
+            <p class="text-lg font-bold">Wind</p>
+            <p class="text-xl">{{ speed }} m/s</p>
+          </div>
         </a>
       </div>
     </div>

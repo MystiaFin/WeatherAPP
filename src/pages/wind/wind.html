@@ -1,91 +1,103 @@
 <link rel="stylesheet" href="styles.css" />
 
 <div class="p-10">
-  <header class="flex justify-between items-center mb-8">
-    <h1 class="text-2xl font-bold">WeatherAPP</h1>
-    <div class="flex items-center gap-2">
-      <span>Location:</span>
-      <select
-        ng-model="selectedCity"
-        ng-change="changeCity(selectedCity)"
-        class="bg-gray-900 p-2 rounded-lg"
-      >
-        <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-      </select>
-    </div>
-  </header>
-  <div ng-if="loading" class="text-center p-4">Loading forecast...</div>
-
   <div class="bg-gray-800 text-white min-h-screen p-4">
     <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-semibold">Weatherio</h1>
+      <h1 class="text-4xl font-bold">Wind</h1>
       <div class="flex items-center space-x-2">
-        <a href="#/" class="text-blue-400">Back to Main</a>
+        <a href="#/" class="text-lg text-blue-600 font-bold hover:text-blue-700"
+          >Back to Main</a
+        >
       </div>
     </div>
 
     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Section Wind Speed -->
       <div class="bg-gray-900 p-4 rounded-lg">
-        <h2 class="text-4xl">{{ speed }} m/s</h2>
-        <p class="text-lg">Wind</p>
+        <img src="{{mainIcon}}" alt="Main Icon" class="w-20 h-20" />
+        <h2 class="text-4xl font-bold">{{ speed }} m/s</h2>
         <p class="text-sm mt-2">{{ todayDate }}</p>
-        <p class="text-sm">{{ city }}, {{ weather.sys.country }}</p>
+        <p class="text-sm">{{ cityName }}, {{ country }}</p>
       </div>
 
       <!-- Section Wind Details -->
       <div class="bg-gray-900 p-4 rounded-lg col-span-2">
-        <h2 class="text-lg font-semibold mb-2">Wind Highlights</h2>
+        <h2 class="text-lg font-bold mb-5">Wind Details</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <!-- Pressure -->
           <div>
-            <p>Pressure</p>
+            <p class="text-gray-400">Pressure</p>
             <div class="text-xl">{{ pressure }} hPa</div>
           </div>
 
           <!-- Visibility -->
           <div>
-            <p>Visibility</p>
+            <p class="text-gray-400">Visibility</p>
             <div class="text-xl">{{ visibility / 1000 }} km</div>
           </div>
 
           <!-- Wind Details -->
           <div>
-            <p>Wind</p>
-            <div class="text-xl">
-              {{ speed }} m/s, {{ deg }}°, Gust: {{ gust || 'N/A' }}
-            </div>
+            <p class="text-gray-400">Wind Speed</p>
+            <div class="text-xl">{{ speed }} m/s</div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Section Wind Forecast -->
-    <div class="mt-6">
-      <h2 class="text-lg font-semibold mb-2">5 Days Wind Forecast</h2>
-      <div class="grid grid-cols-5 gap-4">
-        <div
-          class="bg-gray-900 p-2 rounded-lg text-center"
-          ng-repeat="day in forecast"
-        >
-          <p class="text-lg">{{ speed }} m/s</p>
-          <p>Direction: {{ deg }}°</p>
-          <p class="text-sm">{{ day.date | date:'EEE, d MMM' }}</p>
+          <!-- Wind Details -->
+          <div>
+            <p class="text-gray-400">Wind Degree</p>
+            <div class="text-xl">{{ deg }}°</div>
+          </div>
+
+          <!-- Wind Details -->
+          <div>
+            <p class="text-gray-400">Wind Gust</p>
+            <div class="text-xl">{{ gust }} m/s</div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Section Hourly Wind Data -->
     <div class="mt-6">
-      <h2 class="text-lg font-semibold mb-2">Today at</h2>
+      <h2 class="text-lg font-bold mb-2">Today at</h2>
       <div class="grid grid-cols-6 gap-2">
         <div
           class="bg-gray-900 p-2 rounded-lg text-center"
-          ng-repeat="hour in hourlyWind"
+          ng-repeat="day in dayTemps"
         >
-          <p>{{ hour.time | date:'h a' }}</p>
-          <p class="text-2xl">{{ speed }} m/s</p>
-          <p>{{ deg }}°</p>
+          <img
+            ng-src="{{day.icon}}"
+            alt="weather icon"
+            class="w-12 h-12 mx-auto"
+          />
+          <p>{{ day.hour | date:'h a' }}</p>
+          <p class="text-lg font-semibold">{{ day.speed }} m/s</p>
+          <p class="text-gray-400">Deg : {{ day.deg }}°</p>
+          <p class="text-gray-400">Gsut : {{ day.gust }}°</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Wind Forecast -->
+    <div class="mt-6">
+      <h2 class="text-lg font-bold mb-2">5 Days Wind Forecast</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div
+          class="bg-gray-900 p-2 rounded-lg text-center"
+          ng-repeat="day in futureTemps"
+        >
+          <img
+            ng-src="{{day.icon}}"
+            alt="weather icon"
+            class="w-12 h-12 mx-auto"
+          />
+          <p class="text-lg font-semibold">{{ day.speed }} m/s</p>
+          <p class="text-gray-400">Deg : {{ day.deg }}°</p>
+          <p class="text-gray-400">Gust : {{ day.gust }}°</p>
+          <div class="py-2">
+            <div class="font-bold">{{day.date | date:'MMM d'}}</div>
+            <div class="text-gray-400">{{day.hour}}</div>
+          </div>
         </div>
       </div>
     </div>

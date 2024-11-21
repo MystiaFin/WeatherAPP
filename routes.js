@@ -19,7 +19,7 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
         templateUrl: "src/pages/airpolution/airpolution.html",
         controller: "AirPolutionController",
       })
-      .when("/wind", {
+      .when("/wind/:cityName", {
         templateUrl: "src/pages/wind/wind.html",
         controller: "WindController",
       })

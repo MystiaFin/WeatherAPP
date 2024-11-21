@@ -84,3 +84,30 @@ app.controller("HomeTemperature", function ($scope, WeatherService) {
     loadTemperature();
   });
 });
+
+app.controller("HomeWind", function ($scope, WeatherService) {
+  $scope.loading = true;
+
+  $scope.speed = 0;
+  $scope.deg = 0;
+  $scope.gust = 0;
+
+  function loadWind() {
+    $scope.loading = true;
+    WeatherService.getWeatherByCity($scope.$parent.selectedCity)
+      .then(function (response) {
+        $scope.speed = response.data.wind.speed;
+        $scope.deg = response.data.wind.deg;
+        $scope.gust = response.data.wind.gust;
+        $scope.loading = false;
+      })
+      .catch(function (error) {
+        console.error("Error fetching wind:", error);
+        $scope.loading = false;
+      });
+  }
+
+  $scope.$watch("$parent.selectedCity", function () {
+    loadWind();
+  });
+});
