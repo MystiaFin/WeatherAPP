@@ -6,8 +6,8 @@
         <input
           type="text"
           ng-model="selectedCity"
-          class="bg-gray-900 p-2 rounded-lg"
-          placeholder="Enter city name"
+          class="bg-gray-900 p-2 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          placeholder="Enter city name..."
           ng-keyup="changeCity(selectedCity)"
           ng-model-options="{ debounce: 500 }"
         />
@@ -18,7 +18,9 @@
   <div class="flex p-10 gap-4 justify-center items-center">
     <a href="#/temperature/{{selectedCity}}">
       <div ng-controller="HomeTemperature">
-        <div class="bg-gray-900 p-4 rounded-lg min-h-[400px]">
+        <div
+          class="bg-gray-900 p-4 rounded-lg min-h-[460px] hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+        >
           <div class="mb-4">
             <h2 class="text-xl font-bold">Temperature</h2>
           </div>
@@ -60,7 +62,9 @@
       class="flex justify-between flex-col gap-4"
     >
       <a href="#/forecast" class="h-full">
-        <div class="bg-gray-900 p-1 h-full rounded-lg">
+        <div
+          class="bg-gray-900 p-1 h-full rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+        >
           <div ng-if="loading" class="text-center p-4">Loading forecast...</div>
           <div ng-if="!loading" class="p-4">
             <h3 class="text-2xl mt-2 mb-6 font-bold">
@@ -88,16 +92,34 @@
       </a>
       <div class="flex gap-2">
         <a href="#/airpolution">
-          <div class="bg-gray-900 p-1 rounded-lg">air polution</div>
+          <div
+            class="bg-gray-900 p-1 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          >
+            air polution
+          </div>
         </a>
 
         <a href="#/wind/{{selectedCity}}">
-          <div
-            ng-controller="HomeWind"
-            class="bg-gray-900 text-white text-center w-40 h-20 rounded-lg flex flex-col items-center justify-center"
-          >
-            <p class="text-lg font-bold">Wind</p>
-            <p class="text-xl">{{ speed }} m/s</p>
+          <div ng-controller="HomeWind">
+            <div
+              class="wind-card bg-gray-900 p-4 rounded-lg flex flex-col items-center justify-center text-white hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+            >
+              <h3 class="text-xl font-bold mb-2">Wind</h3>
+              <div class="grid grid-cols-3 gap-2 w-full">
+                <div class="p-2 bg-gray-700 rounded-lg text-center">
+                  <p class="text-sm text-gray-400">Speed</p>
+                  <p>5.14 m/s</p>
+                </div>
+                <div class="p-2 bg-gray-700 rounded-lg text-center">
+                  <p class="text-sm text-gray-400">Degree</p>
+                  <p>90°</p>
+                </div>
+                <div class="p-2 bg-gray-700 rounded-lg text-center">
+                  <p class="text-sm text-gray-400">Gust</p>
+                  <p>7.2 m/s</p>
+                </div>
+              </div>
+            </div>
           </div>
         </a>
       </div>
