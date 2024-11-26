@@ -1,17 +1,17 @@
 <div ng-controller="HomeController">
   <div class="w-full flex p-10">
     <header class="w-full flex flex-row justify-between items-center gap-4">
-      <div class="text-2xl font-bold">WeatherAPP</div>
-      <div class="text-xl gap-2">
+      <div class="text-xl font-bold">WeatherAPP</div>
+      <div class="text-lg gap-2">
+        City: 
         <input
           type="text"
           ng-model="selectedCity"
-          class="bg-gray-900 p-2 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          class="bg-gray-900 p-2 w-48  rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
           placeholder="Enter city name..."
           ng-keyup="changeCity(selectedCity)"
           ng-model-options="{ debounce: 500 }"
         />
-        Location: {{ selectedCity }}
       </div>
     </header>
   </div>
@@ -19,10 +19,10 @@
     <a href="#/temperature/{{selectedCity}}">
       <div ng-controller="HomeTemperature">
         <div
-          class="bg-gray-900 p-4 rounded-lg min-h-[460px] hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          class="flex flex-col justify-around bg-gray-900 p-4 py-12 rounded-lg min-h-[460px] hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
         >
-          <div class="mb-4">
-            <h2 class="text-xl font-bold">Temperature</h2>
+          <div class="mb-4 ">
+            <h2 class="text-center text-2xl font-bold">Temperature</h2>
           </div>
 
           <div ng-if="loading" class="text-center mt-20">
@@ -73,13 +73,13 @@
             <div class="flex flex-row gap-2">
               <div
                 ng-repeat="day in forecast | limitTo:5"
-                class="flex justify-center px-10 flex-col text-center text-sm p-2 bg-gray-800 rounded flex-1 w-32"
+                class="flex justify-center px-8 flex-col text-center text-sm p-2 bg-gray-800 rounded flex-1 w-32"
               >
-                <div class="font-medium py-4 text-lg">{{day.weather}}</div>
+                <div class="font-medium py-2 text-lg">{{day.weather}}</div>
                 <img
                   ng-src="{{day.icon}}"
                   alt="weather icon"
-                  class="w-12 h-12 mx-auto"
+                  class="w-8 h-8 mx-auto"
                 />
                 <div class="py-4">
                   <div class="font-bold">{{day.date | date:'MMM d'}}</div>
@@ -102,20 +102,20 @@
         <a href="#/wind/{{selectedCity}}">
           <div ng-controller="HomeWind">
             <div
-              class="wind-card bg-gray-900 p-4 rounded-lg flex flex-col items-center justify-center text-white hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+              class="wind-card bg-gray-900 p-6 rounded-lg flex flex-col items-center justify-center text-white hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
             >
-              <h3 class="text-xl font-bold mb-2">Wind</h3>
+              <h3 class="text-xl font-bold mb-5">Wind</h3>
               <div class="grid grid-cols-3 gap-2 w-full">
-                <div class="p-2 bg-gray-700 rounded-lg text-center">
-                  <p class="text-sm text-gray-400">Speed</p>
+                <div class="p-4 bg-gray-700 rounded-lg text-center">
+                  <p class="text-md text-gray-400">Speed</p>
                   <p>5.14 m/s</p>
                 </div>
-                <div class="p-2 bg-gray-700 rounded-lg text-center">
-                  <p class="text-sm text-gray-400">Degree</p>
+                <div class="p-4 bg-gray-700 rounded-lg text-center">
+                  <p class="text-md text-gray-400">Degree</p>
                   <p>90°</p>
                 </div>
-                <div class="p-2 bg-gray-700 rounded-lg text-center">
-                  <p class="text-sm text-gray-400">Gust</p>
+                <div class="p-4 bg-gray-700 rounded-lg text-center">
+                  <p class="text-md text-gray-400">Gust</p>
                   <p>7.2 m/s</p>
                 </div>
               </div>
