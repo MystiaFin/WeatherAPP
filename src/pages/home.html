@@ -3,11 +3,11 @@
     <header class="w-full flex flex-row justify-between items-center gap-4">
       <div class="text-xl font-bold">WeatherAPP</div>
       <div class="text-lg gap-2">
-        City: 
+        City:
         <input
           type="text"
           ng-model="selectedCity"
-          class="bg-gray-900 p-2 w-48  rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          class="bg-gray-900 p-2 w-48 ml-4  rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
           placeholder="Enter city name..."
           ng-keyup="changeCity(selectedCity)"
           ng-model-options="{ debounce: 500 }"
