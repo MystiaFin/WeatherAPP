@@ -8,8 +8,9 @@ var app = angular.module("WeatherAPP", ["ngRoute"]).config([
         templateUrl: "src/pages/home.html",
         controller: "HomeController",
       })
-      .when("/forecast", {
+      .when("/forecast/:cityName", {
         templateUrl: "src/pages/forecast.html",
+        controller: "ForecastController",
       })
       .when("/temperature/:cityName", {
         templateUrl: "src/pages/temperature/temperature.html",

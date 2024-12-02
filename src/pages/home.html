@@ -7,7 +7,7 @@
         <input
           type="text"
           ng-model="selectedCity"
-          class="bg-gray-900 p-2 w-48 ml-4  rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          class="bg-gray-900 p-2 w-48 ml-4 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
           placeholder="Enter city name..."
           ng-keyup="changeCity(selectedCity)"
           ng-model-options="{ debounce: 500 }"
@@ -21,7 +21,7 @@
         <div
           class="flex flex-col justify-around bg-gray-900 p-4 py-12 rounded-lg min-h-[460px] hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
         >
-          <div class="mb-4 ">
+          <div class="mb-4">
             <h2 class="text-center text-2xl font-bold">Temperature</h2>
           </div>
 
@@ -61,7 +61,7 @@
       ng-controller="HomeForecast"
       class="flex justify-between flex-col gap-4"
     >
-      <a href="#/forecast" class="h-full">
+      <a href="#/forecast/{{selectedCity}}" class="h-full">
         <div
           class="bg-gray-900 p-1 h-full rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
         >
@@ -91,17 +91,15 @@
         </div>
       </a>
 
-       
       <div class="flex gap-2">
         <a href="#/airpolution">
-        <div
-        class="bg-gray-900 p-1 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
-        >
-        air polution
-        </div>
+          <div
+            class="bg-gray-900 p-1 rounded-lg hover:outline hover:outline-2 hover:outline-white hover:outline-offset-4 transition-all"
+          >
+            air polution
+          </div>
         </a>
-               
-       
+
         <a href="#/wind/{{selectedCity}}">
           <div ng-controller="HomeWind">
             <div

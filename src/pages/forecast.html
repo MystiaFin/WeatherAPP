@@ -3,14 +3,7 @@
     <header class="flex justify-between items-center mb-8">
       <h1 class="text-2xl font-bold">5-days Weather Forecast</h1>
       <div class="flex items-center gap-2">
-        <span>Location:</span>
-        <select
-          ng-model="selectedCity"
-          ng-change="changeCity(selectedCity)"
-          class="bg-gray-900 p-2 rounded-lg"
-        >
-          <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-        </select>
+        <span>Location: {{cityName}}</span>
       </div>
     </header>
     <div ng-if="loading" class="text-center p-4">Loading forecast...</div>
