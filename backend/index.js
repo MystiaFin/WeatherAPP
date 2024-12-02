@@ -111,15 +111,36 @@ app.get("/airpollution/city/:cityName", async (req, res) => {
     });
 
     const aqi = pollutionResponse.data.list[0].main.aqi; // AQI score
+    console.log("AQI Value:", aqi); // Log the AQI value
     const components = pollutionResponse.data.list[0].components;
 
     // Define air quality levels based on AQI
-    let airQualityLevel;
-    if (aqi === 1) airQualityLevel = "Very Good";
-    else if (aqi === 2) airQualityLevel = "Good";
-    else if (aqi === 3) airQualityLevel = "Moderate";
-    else if (aqi === 4) airQualityLevel = "Poor";
-    else airQualityLevel = "Very Poor";
+let airQualityLevel;
+let color = '';
+
+// Determine AQI level and color
+if (aqi >= 0 && aqi <= 50) {
+  airQualityLevel = "Good";
+  color = "green";
+} else if (aqi >= 51 && aqi <= 100) {
+  airQualityLevel = "Moderate";
+  color = "yellow";
+} else if (aqi >= 101 && aqi <= 150) {
+  airQualityLevel = "Unhealthy for Sensitive Groups";
+  color = "orange";
+} else if (aqi >= 151 && aqi <= 200) {
+  airQualityLevel = "Unhealthy";
+  color = "red";
+} else if (aqi >= 201 && aqi <= 300) {
+  airQualityLevel = "Very Unhealthy";
+  color = "purple";
+} else if (aqi >= 301 && aqi <= 500) {
+  airQualityLevel = "Hazardous";
+  color = "maroon";
+} else if (aqi >= 501) {
+  airQualityLevel = "Very Hazardous";
+  color = "brown";
+}
 
     // Function to determine the category basd on value and ranges
     function classifyComponent(component, ranges) {
@@ -128,7 +149,7 @@ app.get("/airpollution/city/:cityName", async (req, res) => {
           return range.label;
         }
       }
-      return ranges[ranges.length - 1].label; // Default to highest category
+      return ranges[ranges.length - 1].label; 
     }
 
     // Classification ranges
@@ -176,15 +197,15 @@ app.get("/airpollution/city/:cityName", async (req, res) => {
         { min: 15400, max: Infinity, label: "Very Poor" },
       ],
       nh3: [
-        { min: 0, max: 200, label: "Good" },
-        { min: 200, max: 400, label: "Fair" },
+        { min: 0, max: 200, label: "Very Good" },
+        { min: 200, max: 400, label: "Good" },
         { min: 400, max: 800, label: "Moderate" },
         { min: 800, max: 1200, label: "Poor" },
         { min: 1200, max: Infinity, label: "Very Poor" },
       ],
       no: [
-        { min: 0, max: 40, label: "Good" },
-        { min: 40, max: 80, label: "Fair" },
+        { min: 0, max: 40, label: "Very Good" },
+        { min: 40, max: 80, label: "Good" },
         { min: 80, max: 180, label: "Moderate" },
         { min: 180, max: 400, label: "Poor" },
         { min: 400, max: Infinity, label: "Very Poor" },
@@ -205,6 +226,7 @@ app.get("/airpollution/city/:cityName", async (req, res) => {
     res.json({
       aqi,
       airQualityLevel,
+      color,
       components: classifiedComponents,
     });
   } catch (error) {
@@ -223,5 +245,10 @@ app.use((err, req, res, next) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Weather API server running on port ${port}`);
+  console.log(`Weather API server running on port ${port}`)
+
+
 });
+
+
+

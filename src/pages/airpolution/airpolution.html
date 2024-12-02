@@ -9,104 +9,133 @@
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
-  <!-- Header Section -->
-  <header class="bg-gray-800 py-4 px-6 flex items-center justify-between shadow-md">
-    <h1 class="text-2xl font-bold">Air Pollution Indicator</h1>
-    
-    <!-- "Back to Main" button -->
-    <div class="flex items-center space-x-4">
-      <a href="index.html" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-400">
-        <-- Back to Main
-      </a>
-      <span class="text-lg">Location:</span>
-      <select
-        ng-model="selectedCity"
-        ng-change="changeCity(selectedCity)"
-        class="bg-gray-700 text-white rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-400"
-      >
-        <option ng-repeat="city in cities" value="{{ city }}">{{ city }}</option>
-      </select>
+<!-- Header Section -->
+<header class="bg-gray-800 py-4 px-6 flex items-center justify-between shadow-md">
+  <h1 class="text-2xl font-bold">Air Pollution Indicator</h1>
+  <!-- "Back to Main" button -->
+  <div class="flex items-center space-x-4">
+    <a href="index.html" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-400">
+      Back to Main
+    </a>
+    <span class="text-lg">Location:</span>
+    <select
+      ng-model="selectedCity"
+      ng-change="changeCity(selectedCity)"
+      class="bg-gray-700 text-white rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-400"
+    >
+      <option ng-repeat="city in cities" value="{{ city }}">{{ city }}</option>
+    </select>
+  </div>
+</header>
+
+<!-- Layout Container -->
+<div class="flex h-screen">
+  <!-- Left Bar -->
+  <aside class="bg-gray-900 w-1/4 p-4 shadow-md">
+    <h2 class="text-lg font-semibold mb-4">City Details</h2>
+    <div class="space-y-2">
+      <p><strong>Selected City:</strong> {{ selectedCity }}</p>
     </div>
-  </header>
+  </aside>
 
-  <!-- Layout Container -->
-  <div class="flex h-screen">
-    <!-- Left Bar -->
-    <aside class="bg-gray-900 w-1/4 p-4 shadow-md">
-      <h2 class="text-lg font-semibold mb-4">City Details</h2>
-      <div class="space-y-2">
-        <p><strong>Selected City:</strong> {{ selectedCity }}</p>
-      </div>
-    </aside>
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <!-- Loading Indicator -->
+    <div ng-if="loading" class="text-center text-gray-400">Loading air pollution data...</div>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-      <!-- Loading Indicator -->
-      <div ng-if="loading" class="text-center text-gray-400">Loading air pollution data...</div>
- 
-      <!-- Air Pollution Data -->
-      <div ng-if="!loading && airPollution">
-        <h3 class="text-2xl font-bold mb-6">Air Pollution Data for {{ selectedCity }}</h3>
-        
-        <!-- Tanggal dan Hari -->
-        <p class="text-gray-100 text-lg mb-4">
-           {{ currentDate | date:'EEEE, MMMM d, yyyy' }}
-        </p>
-        
-        <p><strong>AQI:</strong> <span class="text-blue-400">{{ airPollution.airQualityLevel }}</span></p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Components -->
-          <div
-            class="p-4 rounded bg-gray-700 shadow hover:shadow-lg transition"
-            ng-repeat="(key, component) in airPollution.components"
-            ng-class="{
-              'text-green-400': component.classification === 'Very Good',
-              'text-blue-400': component.classification === 'Good',
-              'text-yellow-400': component.classification === 'Moderate',
-              'text-red-400': component.classification === 'Poor',
-              'text-purple-400': component.classification === 'Very Poor'
-            }"
-          >
-            <h4 class="font-semibold text-lg capitalize">{{ key }}</h4>
-            <p>Value: {{ component.value }} μg/m³</p>
-            <p>Classification: {{ component.classification }}</p>
-          </div>
+    <!-- Air Pollution Data -->
+    <div ng-if="!loading && airPollution">
+      <h3 class="text-2xl font-bold mb-6">Air Pollution Data for {{ selectedCity }}</h3>
+
+      <!-- Tanggal dan Hari -->
+      <p class="text-gray-100 text-lg mb-4">
+        {{ currentDate | date:'EEEE. MMMM d, yyyy' }}
+      </p>
+
+      <!-- AQI Status with Icon -->
+      <div class="flex items-center mb-6 p-4 rounded-lg bg-gray-700 shadow-lg">
+        <div class="text-center mr-4">
+          <!-- Status Image based on AQI -->
+          <img ng-src="{{ airPollution.aqi <= 50 ? 'https://img.icons8.com/?size=100&id=bT3h5O7LsBxQ&format=png&color=000000' :
+                        airPollution.aqi <= 100 ? 'https://img.icons8.com/?size=100&id=19565&format=png&color=000000' :
+                        airPollution.aqi <= 150 ? 'https://img.icons8.com/?size=100&id=96794&format=png&color=000000' :
+                        airPollution.aqi <= 200 ? 'https://img.icons8.com/emoji/48/000000/frowning-face.png' :
+                        airPollution.aqi <= 300 ? 'https://img.icons8.com/emoji/48/000000/persevering-face.png' :
+                        'https://img.icons8.com/emoji/48/000000/face-with-head-bandage.png' }}" 
+            alt="AQI Status" class="w-12 h-12"/>
+        </div>
+        <div>
+          <p><strong>AQI:</strong>
+            <span ng-class="{
+              'text-green-300': airPollution.aqi >= 0 && airPollution.aqi <= 50,
+              'text-yellow-400': airPollution.aqi >= 51 && airPollution.aqi <= 100,
+              'text-orange-400': airPollution.aqi >= 101 && airPollution.aqi <= 150,
+              'text-red-400': airPollution.aqi >= 151 && airPollution.aqi <= 200,
+              'text-purple-400': airPollution.aqi >= 201 && airPollution.aqi <= 300,
+              'text-maroon-400': airPollution.aqi >= 301 && airPollution.aqi <= 500,
+              'text-brown-400': airPollution.aqi > 500
+            }">
+              {{ airPollution.aqi }} -
+              <span ng-class="{
+                'text-green-300': airPollution.aqi >= 0 && airPollution.aqi <= 50,
+                'text-yellow-400': airPollution.aqi >= 51 && airPollution.aqi <= 100,
+                'text-orange-400': airPollution.aqi >= 101 && airPollution.aqi <= 150,
+                'text-red-400': airPollution.aqi >= 151 && airPollution.aqi <= 200,
+                'text-purple-400': airPollution.aqi >= 201 && airPollution.aqi <= 300,
+                'text-maroon-400': airPollution.aqi >= 301 && airPollution.aqi <= 500,
+                'text-brown-400': airPollution.aqi > 500
+              }}">
+                {{ airPollution.aqi <= 50 ? 'Good' : airPollution.aqi <= 100 ? 'Moderate' : airPollution.aqi <= 150 ? 'Unhealthy for sensitive groups' : airPollution.aqi <= 200 ? 'Unhealthy' : airPollution.aqi <= 300 ? 'Very unhealthy' : airPollution.aqi <= 500 ? 'Hazardous' : 'Very Hazardous' }}
+              </span>
+            </span>
+          </p>
+          
         </div>
       </div>
-    </main>
-  </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script>
-    angular.module('AirPollutionApp', []).controller('MainController', ['$scope', '$interval', function($scope, $interval) {
-      // Current date and time
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Components -->
+        <div
+          class="p-4 rounded bg-gray-700 shadow hover:shadow-lg transition"
+          ng-repeat="(key, component) in airPollution.components"
+          ng-class="{
+            'text-green-300': component.classification === 'Very Good',
+            'text-green-500': component.classification === 'Good',
+            'text-blue-400': component.classification === 'Moderate',
+            'text-purple-400': component.classification === 'Poor',
+            'text-red-300': component.classification === 'Very Poor'
+          }"
+        >
+          <h4 class="font-semibold text-lg capitalize">{{ key }}</h4>
+          <p>Value: {{ component.value }} μg/m³</p>
+          <p>Classification: {{ component.classification }}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>
+  angular.module('AirPollutionApp', []).controller('MainController', ['$scope', '$interval', function($scope, $interval) {
+    // Current date and time
+    $scope.currentDate = new Date();
+    // Update date every second
+    $interval(function() {
       $scope.currentDate = new Date();
+    }, 1000);
 
-      // Update date every second
-      $interval(function() {
-        $scope.currentDate = new Date();
-      }, 1000);
+    // Change city handler
+    $scope.changeCity = function(city) {
+      $scope.selectedCity = city;
+      $scope.loading = true;
+      // Simulate data loading
+      setTimeout(() => {
+        $scope.loading = false;
+      }, 2000);
+    };
+  }]);
+</script>
 
-      // Mock data for the example
-      $scope.cities = ['New York', 'Los Angeles', 'Chicago'];
-      $scope.selectedCity = $scope.cities[0];
-      $scope.loading = false;
-      $scope.airPollution = {
-        airQualityLevel: 'Very Good',
-        components: {
-          co: { value: 5, classification: 'Very Good' },
-          no2: { value: 20, classification: 'Good' },
-          so2: { value: 10, classification: 'Moderate' }
-        }
-      };
-
-      // Change city handler
-      $scope.changeCity = function(city) {
-        $scope.selectedCity = city;
-        $scope.loading = true;
-        // Simulate data loading
-      };
-    }]);
-  </script>
 </body>
 </html>

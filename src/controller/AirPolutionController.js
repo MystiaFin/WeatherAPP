@@ -25,8 +25,14 @@ app.controller("AirPolutionController", function ($scope, AirPolutionService, $i
     });
   }
 
+  
+
   $scope.$watch("selectedCity", function () {
     loadAirPollution();
   });
+
+  
+
+  
 
 });
