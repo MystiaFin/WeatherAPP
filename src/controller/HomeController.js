@@ -111,3 +111,37 @@ app.controller("HomeWind", function ($scope, WeatherService) {
     loadWind();
   });
 });
+
+app.controller("HomeAirQuality", function ($scope, AirPolutionService) {
+  $scope.airQualityStatus = "Loading...";
+  $scope.coLevel = 0;
+
+  function loadAirQuality() {
+    AirPolutionService.getAirPolutionByCity($scope.$parent.selectedCity)
+      .then(function (response) {
+        const aqi = response.data.aqi;
+
+        if (aqi <= 50) {
+          $scope.airQualityStatus = "Good";
+        } else if (aqi <= 100) {
+          $scope.airQualityStatus = "Moderate";
+        } else if (aqi <= 150) {
+          $scope.airQualityStatus = "Unhealthy for Sensitive Groups";
+        } else if (aqi <= 200) {
+          $scope.airQualityStatus = "Unhealthy";
+        } else if (aqi <= 300) {
+          $scope.airQualityStatus = "Very Unhealthy";
+        } else {
+          $scope.airQualityStatus = "Hazardous";
+        }
+      })
+      .catch(function (error) {
+        console.error("Error fetching air quality data:", error);
+        $scope.airQualityStatus = "Error";
+      });
+  }
+
+  $scope.$watch("$parent.selectedCity", function () {
+    loadAirQuality();
+  });
+});
